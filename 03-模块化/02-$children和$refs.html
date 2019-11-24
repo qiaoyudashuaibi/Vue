@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>通过$children和$refs访问子组件的属性和方法</h2>
+  <br>
+  <cpn ref="cpn1"></cpn>
+  <cpn ref="cpn2"></cpn>
+  <cpn ref="cpn3"></cpn>
+  <br>
+  <h3>通过$children：</h3>
+  <button @click="btnClick1">查看子组件属性</button>
+  <button @click="btnClick2">执行子组件方法</button>
+  <br>
+  <h3>通过$refs：</h3>
+  <button @click="btnClick3">查看子组件属性</button>
+  <button @click="btnClick4">执行子组件方法</button>
+  <br>
+  <ul>
+    <li>$children是以数组的形式存储子组件的，$refs是以对象的形式存储子组件的。</li>
+    <li>$children使用的时候比较少，因为数组需要使用下标来确定是哪个子组件，在有很多子组件的时候没有$refs灵活</li>
+    <li>使用$refs时一定要在相应的子组件上添加ref属性，这样$refs才可以添加子组件。</li>
+  </ul>
+</div>
+
+<template id="cpn">
+  <h3>我是子组件</h3>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        cMessage: '我是子组件属性cMessage',
+      }
+    },
+    methods: {
+      cPrint() {
+        console.log('我是子组件的方法cPrint()');
+      }
+    }
+  }
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    methods: {
+      btnClick1() {
+        //$children内部以数组的形式存储
+        // console.log(this.$children);
+        console.log(this.$children[0].cMessage);
+      },
+      btnClick2() {
+        this.$children[0].cPrint();
+      },
+      btnClick3() {
+        console.log(this.$refs.cpn1.cMessage);
+      },
+      btnClick4() {
+        this.$refs.cpn1.cPrint();
+      }
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
+</body>
+</html>

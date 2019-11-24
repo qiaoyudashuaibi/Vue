@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <style>
+    .red {
+      color: red;
+    }
+
+    .big {
+      font-size: larger;
+    }
+  </style>
+</head>
+<body>
+<script src="../js/vue.js"></script>
+
+<div id="app">
+  <!--    <div :class="{red:isRed}">{{message}}</div>-->
+<!--  <div :class="getClass()">{{message}}</div>-->
+  <div :class="['red','big']">{{message}}</div>
+  <button @click="change">确定</button>
+  <!--  <img :src="imgurl" alt="？？？">-->
+</div>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '前路漫漫，唯剑作伴',
+      imgurl: 'http://pic11.nipic.com/20101125/2531170_090452750000_4.jpg',
+      isRed: true,
+      isBig: true
+    },
+    methods: {
+      change: function () {
+        this.isRed = !this.isRed;
+      },
+      getClass: function () {
+        return {red: this.isRed, big: this.isBig}
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

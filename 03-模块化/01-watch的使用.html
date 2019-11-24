@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn :number1="number1" :number2="number2" @cnumber1change="cnumber1change"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>watch监控子组件的属性</h2>
+    <br/>
+    <h2>父8倍:{{number1}}</h2>
+    <h2>父4倍:{{number2}}</h2>
+    <h2>子2倍:{{cnumber1}}</h2>
+    <h2>子1倍:{{cnumber2}}</h2>
+    <input type="text" v-model="cnumber2" onfocus="this.value=''" onblur="this.value='请输入'">
+  </div>
+</template>
+
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        cnumber1: 0,
+        cnumber2: 0
+      }
+    },
+    watch: {
+      cnumber2(newValue) {
+        this.cnumber1 = newValue * 2;
+        this.$emit('cnumber1change', newValue);
+      }
+    },
+    props: {
+      number1: {
+        type: Number
+      },
+      number2: {
+        type: Number
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        number1: 0,
+        number2: 0
+      }
+    },
+    components: {
+      cpn
+    },
+    methods: {
+      cnumber1change(newValue) {
+        // console.log(newValue);
+        this.number1 = newValue * 8;
+        this.number2 = newValue * 4;
+      }
+    }
+  })
+</script>
+</body>
+</html>

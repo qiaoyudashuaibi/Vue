@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!-- 绑定父组件属性 -->
+  <!-- 驼峰写法 -->
+  <cpn :c-info="info" :c-message="message"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>{{cInfo}}</h2>
+    <h2>{{cMessage}}</h2>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    props: {
+      cInfo: {
+        type: Object,
+        //default应该是函数
+        default() {
+          return {}
+        }
+      },
+      cMessage: {
+        type: String,
+        default() {
+          return "我是子信息"
+        }
+      }
+    }
+  }
+
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      info: {
+        name: '乔宇',
+        age: '18',
+        height: 1.86,
+      },
+      message: "我是父信息"
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
+</body>
+</html>

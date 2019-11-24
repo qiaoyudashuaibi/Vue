@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>通过$parent和$root访问父组件和根组件</h2>
+  <br>
+  <cpn></cpn>
+  <br><br>
+  <ul>
+    <li>一般情况$parent用的很少，如果频繁使用$parent从父组件中获取数据会导致整个程序的耦合性很高，组件的意义是实现复用性，应该减少耦合度。</li>
+    <li>$root使用情况也比较少，一般程序的根组件不会放置很多的东西，根组件一般会放路由或者VueX等信息。</li>
+  </ul>
+</div>
+
+<template id="cpn">
+  <div>
+    <h3>我是cpn子组件</h3>
+    <button @click="cbtnClick">输出$parent的信息</button>
+    <button @click="cbtnClick2">输出$root的信息</button>
+    <ccpn></ccpn>
+  </div>
+</template>
+
+<template id="ccpn">
+  <div>
+    <h3>我是ccpn孙子组件（误）</h3>
+    <button @click="ccbtnClick">输出$parent的信息</button>
+    <button @click="ccbtnClick2">输出$root的信息</button>
+  </div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+  const ccpn = {
+    template: '#ccpn',
+    data() {
+      return {
+        ccMessage: '我是孙子组件ccpn的ccMessage'
+      }
+    },
+    methods: {
+      ccbtnClick() {
+        console.log(this.$parent);
+      },
+      ccbtnClick2() {
+        console.log(this.$root);
+      }
+    }
+  }
+
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        cMessage: '我是子组件cpn的cMessage'
+      }
+    },
+    components: {
+      ccpn
+    },
+    methods: {
+      cbtnClick() {
+        console.log(this.$parent);
+      },
+      cbtnClick2() {
+        console.log(this.$root);
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
+</body>
+</html>

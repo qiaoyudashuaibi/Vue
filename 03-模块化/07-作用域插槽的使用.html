@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>作用域插槽的使用</h2>
+  <br>
+  <h3>我们在使用子组件插槽来显示的时候，有时会不满意子组件传来的数据，这时我们需要在使用时修改传来的数据</h3>
+  <h3>我们需要获取到子组件的数据，所以需要用到作用域插槽</h3>
+  <cpn></cpn>
+  <br>
+  <cpn>
+    <p slot="pSlot">这是子组件中的数据，以横杆隔开的形式显示</p>
+    <!--  在vue2.5以上的版本可以使用div标签，使用template向下兼容  -->
+    <!--  在需要修改插槽的显示形式时，使用slot-scope用slot对象接收传过来的数据  -->
+    <template slot-scope="slot">
+      <span>{{slot.data.join(' - ')}}</span>
+    </template>
+  </cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>我是子组件</h2>
+    <slot name="pSlot">
+      <p>这是子组件中的数据，以列表的形式展示</p>
+    </slot>
+    <!--  data不固定，可以写成其他形式  -->
+    <!--  在需要修改的插槽，绑定需要传输的数据  -->
+    <slot :data="pLanguages">
+      <ul>
+        <li v-for="item in pLanguages">{{item}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        pLanguages: ['JavaScript', 'Css', 'HTML', 'Python', 'Go', 'Swift', 'C++']
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
+</body>
+</html>

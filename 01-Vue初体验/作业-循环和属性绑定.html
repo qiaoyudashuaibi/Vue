@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>循环和数据绑定</title>
+
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+
+</head>
+<body>
+<script src="../js/vue.js"></script>
+<div id="app">
+  <h2>实现点击哪个列表，哪个列表变成红色</h2>
+  <ul>
+    <li :class="{red:currentIndex === index}" v-for="(item , index) in items" @click="changeRed(index)">
+      {{item}}
+    </li>
+  </ul>
+</div>
+
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    //data写成function形式
+    data: function () {
+      return {
+        items: ['松本人志', '浜田雅功', '月亭方正', '田中直树', '远藤章造'],
+        currentIndex: 0,
+      }
+    },
+    methods: {
+      changeRed: function (index) {
+        this.currentIndex = index;
+
+        // this.isRed[index] = 'red'
+        //强制渲染
+        // this.$forceUpdate()
+        //赋予isRed一个新的存储空间
+        // this.isRed = [...this.isRed]
+      }
+    },
+    computed: {}
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>编译作用域的概念</h2>
+  <br>
+  <h3>我们知道，子组件是不可以直接访问父组件中的数据的，组件的数据都是有作用域的</h3>
+  <h3>下面在子组件和父组件中各写一个isShow属性，更改其中一个的isShow属性并不会影响另一个组件</h3>
+  <br>
+  <h2>我是父组件</h2>
+  <button v-show="isShow">父组件按钮</button>
+  <cpn></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>我是子组件</h2>
+    <button v-show="isShow">子组件按钮</button>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        isShow: true
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        isShow: true
+      }
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
+</body>
+</html>

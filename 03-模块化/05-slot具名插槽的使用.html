@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>slot具名插槽的使用</h2>
+  <h3>在使用插槽时，使用具名插槽指定具体的插槽，放置相对的元素</h3>
+  <cpn>
+    <button slot="left">左按钮</button>
+    <input type="text" value="中输入框" slot="center">
+    <i slot="right">右I标签</i>
+  </cpn>
+  <br>
+  <h3>不是具名的插槽显示默认值，具名插槽显示对应的元素</h3>
+</div>
+
+<template id="cpn">
+  <div>
+    <h3>我是子组件，下方有三个插槽</h3>
+    <slot><span>左边</span></slot>
+    <slot><span>中间</span></slot>
+    <slot><span>右边</span></slot>
+    <h3>使用具名函数，指定具体的插槽</h3>
+    <slot name="left"><span>左边</span></slot>
+    <slot name="center"><span>中间</span></slot>
+    <slot name="right"><span>右边</span></slot>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn'
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
+</body>
+</html>

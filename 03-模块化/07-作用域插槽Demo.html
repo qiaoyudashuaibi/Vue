@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>作用域插槽练习Demo</title>
+</head>
+<body>
+<div id="app">
+  <h2>作用域插槽练习Demo</h2>
+  <cpn></cpn>
+  <cpn>
+    <h3 slot="pSlot">以横杠隔开的形式显示：</h3>
+    <template slot-scope="slot">
+      <span>{{slot.data.join(' - ')}}</span>
+    </template>
+  </cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h3>我是子组件</h3>
+    <slot name="pSlot">
+      <h3>以列表的形式展示数据：</h3>
+    </slot>
+    <slot :data="gaki">
+      <ul>
+        <li v-for="yiren in gaki">{{yiren}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        gaki: ['松本人志', '浜田雅功', '月亭方正', '田中直树', '远藤章造']
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
+</body>
+</html>
